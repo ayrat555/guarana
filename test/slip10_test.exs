@@ -1,8 +1,8 @@
-defmodule Slip10Test do
+defmodule GuaranaTest do
   use ExUnit.Case
-  doctest Slip10
+  doctest Guarana
 
   test "greets the world" do
-    assert Slip10.hello() == :world
+    assert Guarana.hello() == :world
   end
 end

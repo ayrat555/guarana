@@ -24,3 +24,5 @@ slip10-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+/native/guarana/target

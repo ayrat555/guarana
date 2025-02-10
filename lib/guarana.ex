@@ -1,6 +1,6 @@
-defmodule Slip10 do
+defmodule Guarana do
   @moduledoc """
-  Documentation for `Slip10`.
+  Documentation for `Guarana`.
   """
 
   @doc """
@@ -8,7 +8,7 @@ defmodule Slip10 do
 
   ## Examples
 
-      iex> Slip10.hello()
+      iex> Guarana.hello()
       :world
 
   """
