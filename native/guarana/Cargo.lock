@@ -185,6 +185,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "guarana"
+version = "0.1.0"
+dependencies = [
+ "generic-ec",
+ "hd-wallet",
+ "rustler",
+]
+
+[[package]]
 name = "hd-wallet"
 version = "0.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -358,15 +367,6 @@ dependencies = [
  "cfg-if",
  "cpufeatures",
  "digest",
-]
-
-[[package]]
-name = "guarana"
-version = "0.1.0"
-dependencies = [
- "generic-ec",
- "hd-wallet",
- "rustler",
 ]
 
 [[package]]
