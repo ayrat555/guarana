@@ -41,12 +41,7 @@ fn derive_key<'a>(
         .as_mut_slice()
         .copy_from_slice(&child_key_pair.public_key().public_key.to_bytes(false)[..]);
 
-    let mut public_key_chain_code = NewBinary::new(env, 32);
-    public_key_chain_code
-        .as_mut_slice()
-        .copy_from_slice(&child_key_pair.public_key().chain_code);
-
-    let mut private_key = NewBinary::new(env, 64);
+    let mut private_key = NewBinary::new(env, 32);
     private_key.as_mut_slice().copy_from_slice(
         &child_key_pair
             .secret_key()
@@ -62,9 +57,8 @@ fn derive_key<'a>(
 
     (
         Binary::from(public_key),
-        Binary::from(private_key_chain_code),
         Binary::from(private_key),
-        Binary::from(public_key_chain_code),
+        Binary::from(private_key_chain_code),
     )
         .encode(env)
 }
@@ -84,8 +78,10 @@ fn load_extended_key<'a>(
         Err(_) => return Err((atoms::error(), atoms::wrong_secret_key_size()).encode(env)),
     };
 
+    let mut root_sk = generic_ec::Scalar::from_be_bytes_mod_order(&parsed_secret_key);
+
     Ok(hd_wallet::ExtendedSecretKey {
-        secret_key: generic_ec::SecretScalar::from_be_bytes(&parsed_secret_key).unwrap(),
+        secret_key: generic_ec::SecretScalar::new(&mut root_sk),
         chain_code: parsed_chain_code,
     }
     .into())

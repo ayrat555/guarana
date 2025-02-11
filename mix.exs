@@ -27,6 +27,7 @@ defmodule Guarana.MixProject do
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
       {:rustler, ">= 0.0.0", optional: true},
+      {:cafezinho, "~> 0.4.3"},
       {:rustler_precompiled, "~> 0.8"}
 
       # {:dep_from_hexpm, "~> 0.3.0"},

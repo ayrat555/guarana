@@ -1,18 +1,13 @@
 defmodule Guarana do
-  @moduledoc """
-  Documentation for `Guarana`.
-  """
+  alias Guarana.Impl
 
-  @doc """
-  Hello world.
+  def derive_keypair(key, salt, path) do
+    <<secret_key::binary-32, chain_code::binary-32>> = :crypto.mac(:hmac, :sha512, salt, key)
 
-  ## Examples
-
-      iex> Guarana.hello()
-      :world
-
-  """
-  def hello do
-    :world
+    Impl.derive_key(secret_key, chain_code, path)
   end
+
+  defdelegate keypair_from_seed(seed), to: Cafezinho
+
+  defdelegate generate_keypair(), to: Cafezinho, as: :generate
 end
