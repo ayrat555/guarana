@@ -1,13 +1,34 @@
 defmodule Guarana do
-  alias Guarana.Impl
+  alias Guarana.DerivationImpl
+  alias Guarana.Key
 
-  def derive_keypair(key, salt, path) do
-    <<secret_key::binary-32, chain_code::binary-32>> = :crypto.mac(:hmac, :sha512, salt, key)
+  def master_key_from_seed(seed, hmac_key \\ "Gua") do
+    case DerivationImpl.master_key_from_seed(seed, hmac_key) do
+      {:ok, data} ->
+        {:ok, create_key(data)}
 
-    Impl.derive_key(secret_key, chain_code, path)
+      error ->
+        error
+    end
   end
 
-  defdelegate keypair_from_seed(seed), to: Cafezinho
+  def derive_child_key(key, path) do
+    case DerivationImpl.derive_child_key(
+           key.depth,
+           key.index,
+           key.signing_key,
+           key.chain_code,
+           path
+         ) do
+      {:ok, data} ->
+        {:ok, create_key(data)}
 
-  defdelegate generate_keypair(), to: Cafezinho, as: :generate
+      error ->
+        error
+    end
+  end
+
+  def create_key({depth, child_index, signing_key, chain_code}) do
+    %Key{depth: depth, index: child_index, chain_code: chain_code, signing_key: signing_key}
+  end
 end

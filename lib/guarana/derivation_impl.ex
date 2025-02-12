@@ -1,4 +1,4 @@
-defmodule Guarana.Impl do
+defmodule Guarana.DerivationImpl do
   @moduledoc false
 
   version = Mix.Project.config()[:version]
@@ -12,5 +12,8 @@ defmodule Guarana.Impl do
     nif_versions: ["2.15", "2.16"],
     version: version
 
-  def derive_key(_secret_key, _chain_code, _raw_path), do: :erlang.nif_error(:nif_not_loaded)
+  def master_key_from_seed(_seed, _hmac_key), do: :erlang.nif_error(:nif_not_loaded)
+
+  def derive_child_key(_depth, _child_index, _signing_key, _chain_code, _path),
+    do: :erlang.nif_error(:nif_not_loaded)
 end
