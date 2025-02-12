@@ -1,11 +1,10 @@
 # Guarana
 
-**TODO: Add description**
+BIP32 key derivation for ed25519 keys
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `guarana` to your list of dependencies in `mix.exs`:
+The package can be installed by adding `guarana` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
@@ -14,7 +13,3 @@ def deps do
   ]
 end
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/guarana>.

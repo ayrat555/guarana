@@ -1,0 +1,77 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  mix_test:
+    runs-on: ubuntu-20.04
+    env:
+      MIX_ENV: test
+      RUSTLER_BUILD: "1"
+
+    name: Elixir ${{ matrix.pair.elixir }} / OTP ${{ matrix.pair.otp }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - pair:
+              elixir: 1.14.5
+              otp: 24.3.4
+          - pair:
+              elixir: 1.15.7
+              otp: 24.3.4
+          - pair:
+              elixir: 1.16.1
+              otp: 24.3.4
+          - pair:
+              elixir: 1.14.5
+              otp: 25.3.2
+          - pair:
+              elixir: 1.15.7
+              otp: 25.3.2
+          - pair:
+              elixir: 1.16.1
+              otp: 25.3.2
+          - pair:
+              elixir: 1.14.5
+              otp: 26.2.2
+          - pair:
+              elixir: 1.15.7
+              otp: 26.2.2
+          - pair:
+              elixir: 1.16.1
+              otp: 26.2.2
+            lint: lint
+          - pair:
+              elixir: 1.17.3
+              otp: 27.2
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: erlef/setup-beam@v1.15
+        with:
+          otp-version: ${{ matrix.pair.otp }}
+          elixir-version: ${{ matrix.pair.elixir }}
+
+      - name: Install minimal stable Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Dependencies
+        run: mix deps.get
+
+      - run: mix format --check-formatted
+        if: ${{ matrix.lint }}
+
+      - run: mix deps.unlock --check-unused
+        if: ${{ matrix.lint }}
+
+      - run: mix deps.compile
+
+      - run: mix compile --warnings-as-errors
+
+      - run: mix test

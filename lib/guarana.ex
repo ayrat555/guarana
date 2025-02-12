@@ -28,7 +28,7 @@ defmodule Guarana do
     end
   end
 
-  def create_key({depth, child_index, signing_key, chain_code}) do
+  defp create_key({depth, child_index, signing_key, chain_code}) do
     %Key{depth: depth, index: child_index, chain_code: chain_code, signing_key: signing_key}
   end
 end
