@@ -10,6 +10,6 @@ path = "src/lib.rs"
 crate-type = ["cdylib"]
 
 [dependencies]
-rustler = "0.35"
+rustler = "0.36"
 ed25519-dalek-bip32 = { git = "https://github.com/ayrat555/ed25519-dalek-bip32", rev = "68a37fe465fa0c8fb356ca7691c5601cb3bc9914" }
 generic-ec = { version = "0.4", default-features = false }
