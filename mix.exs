@@ -1,15 +1,61 @@
 defmodule Guarana.MixProject do
   use Mix.Project
 
+  @source_url "https://github.com/ayrat555/guarana"
   @version "0.1.0"
 
   def project do
     [
       app: :guarana,
+      name: "Guarana",
       version: @version,
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      docs: docs(),
+      package: package(),
+      description: description()
+    ]
+  end
+
+  defp description do
+    """
+    BIP32 key derivation for ed25519 keys
+    """
+  end
+
+  defp package do
+    [
+      name: :guarana,
+      maintainers: ["Ayrat Badykov"],
+      licenses: ["MIT"],
+      links: %{
+        "Changelog" => "#{@source_url}/blob/master/CHANGELOG.md",
+        "GitHub" => @source_url
+      },
+      files: [
+        "mix.exs",
+        "native/guarana/.cargo/config.toml",
+        "native/guarana/src",
+        "native/guarana/Cargo.toml",
+        "native/guarana/Cargo.lock",
+        "lib",
+        "LICENSE",
+        "README.md",
+        "CHANGELOG.md",
+        "checksum-*.exs"
+      ]
+    ]
+  end
+
+  defp docs do
+    [
+      main: "readme",
+      source_url: @source_url,
+      extras: [
+        "CHANGELOG.md",
+        "README.md"
+      ]
     ]
   end
 

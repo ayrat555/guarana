@@ -1,6 +1,6 @@
 # Guarana
 
-BIP32 key derivation for ed25519 keys
+BIP32 key derivation for ed25519 keys. it uses [ed25519-dalek-bip32](https://github.com/jpopesculian/ed25519-dalek-bip32) rust library
 
 ## Installation
 
