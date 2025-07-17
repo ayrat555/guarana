@@ -39,7 +39,7 @@ defmodule GuaranaTest do
 
       base_path = "m/0'/1'/2'/2'/"
 
-      Enum.each(1..100, fn index ->
+      Enum.each(1..10_000, fn index ->
         path = "#{base_path}#{index}'"
 
         {:ok,
@@ -57,7 +57,9 @@ defmodule GuaranaTest do
     end
   end
 
-  defp verify_signing(<<_private_key::binary-32, public_key::binary>> = signing_key) do
+  defp verify_signing(<<private_key::binary-32, public_key::binary>> = signing_key) do
+    assert Cafezinho.valid_point?(public_key)
+
     message = :crypto.strong_rand_bytes(64)
     assert {:ok, signature} = Cafezinho.sign(message, signing_key)
 
