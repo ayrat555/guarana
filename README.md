@@ -9,7 +9,7 @@ The package can be installed by adding `guarana` to your list of dependencies in
 ```elixir
 def deps do
   [
-    {:guarana, "~> 0.1.0"}
+    {:guarana, "~> 0.2.0"}
   ]
 end
 ```
