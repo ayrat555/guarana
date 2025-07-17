@@ -57,7 +57,7 @@ defmodule GuaranaTest do
     end
   end
 
-  defp verify_signing(<<private_key::binary-32, public_key::binary>> = signing_key) do
+  defp verify_signing(<<_private_key::binary-32, public_key::binary>> = signing_key) do
     assert Cafezinho.valid_point?(public_key)
 
     message = :crypto.strong_rand_bytes(64)
